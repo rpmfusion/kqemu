@@ -1,0 +1,107 @@
+#!/bin/sh
+# init script for kqemu
+#
+# chkconfig: 2345 04 04
+# description: The QEMU Accelerator Module increases the speed of QEMU when a PC is emulated on a PC.
+#
+### BEGIN INIT INFO
+# Provides: kqemu
+# Required-Start: 
+# Required-Stop: 
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: The QEMU Accelerator Module
+# Description: The QEMU Accelerator Module increases the speed of QEMU
+#   when a PC is emulated on a PC.
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+prog="kqemu"
+lockfile="/var/lock/subsys/$prog"
+
+RETVAL=0
+
+start() {
+    echo -n $"Starting $prog: "
+    /sbin/modinfo kqemu &> /dev/null
+    RETVAL=$?
+    if [ $RETVAL = "0" ]; then
+      MAXFREQ=$(/sbin/sysctl -n dev.rtc.max-user-freq &> /dev/null)
+        if [ ! -z $MAXFREQ ]; then
+          if [ $MAXFREQ -lt 1024 ] ; then
+            /sbin/sysctl -q -n -w dev.rtc.max-user-freq=1024 &> /dev/null
+          fi
+        fi
+      /sbin/modprobe kqemu
+      RETVAL=$?
+      touch $lockfile
+      echo -n " kernel $(uname -r) " && echo_success
+    else
+      kernel_version=$(uname -r)
+      if [[ "${kernel_version%%___*}" = *xen ]] ; then
+        echo -n " kernel-xen not supported."  && echo_warning
+        RETVAL=1
+        rm -f $lockfile
+      else
+        echo -n " kqemu.ko not found for $(uname -r)" && echo_failure
+        RETVAL=1
+        rm -f $lockfile
+      fi
+    fi
+    echo
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    /sbin/modprobe -r kqemu
+    RETVAL=$?
+    if [ $RETVAL = "0" ]; then
+      rm -f $lockfile
+      echo -n " stopped" && echo_success
+    else
+      echo -n " did not stop" && echo_failure
+    fi
+    echo
+    return $RETVAL
+}
+
+case "$1" in
+  	start)
+	   start
+	   ;;
+  	stop)
+	   stop
+	   ;;
+  	status)
+           lsmod | grep kqemu > /dev/null
+           if [ $? = "0" ]; then
+              echo $" $prog is loaded"
+           else
+              echo $" $prog is not loaded"
+           fi
+	   ;;
+ 	 restart)
+	   stop
+	   start
+	   ;;
+         condrestart)
+           lsmod | grep kqemu > /dev/null
+           if [ $? = "0" ]; then
+              restart
+           else
+              start
+           fi
+	   ;;
+ 	 reload)
+	   stop
+	   start
+	   ;;
+  	*)
+	echo "Usage: $0 {start|stop|restart|condrestart|reload|status}"
+	exit 1
+esac
+
+exit $RETVAL
