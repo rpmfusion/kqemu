@@ -11,7 +11,7 @@ Source1:        %{name}.init
 Source2:        %{name}.udev
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
-ExcludeArch:    ppc
+ExcludeArch:    ppc ppc64
 
 Provides:       kqemu-kmod-common = %{version}
 Requires:       kqemu-kmod >= %{version}
