@@ -1,6 +1,6 @@
 Name:           kqemu
 Version:        1.3.0
-Release:        0.8.pre11%{?dist}
+Release:        0.8.pre11%{?dist}.1
 Summary:        The QEMU Accelerator Module (KQEMU)
 
 Group:          System Environment/Kernel
@@ -23,7 +23,7 @@ Requires(post): /sbin/service
 Requires(preun): /sbin/service
 Requires(preun): /sbin/chkconfig
 
-Requires: qemu >= 0.9.1
+Requires: qemu
 
 
 %description
@@ -76,6 +76,9 @@ fi
 
 
 %changelog
+* Sun Oct 05 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 1.3.0-0.8.pre11.1
+- require qemu without a specific version
+
 * Sat Oct 04 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 1.3.0-0.8.pre11
 - rebuild for rpm fusion
 
