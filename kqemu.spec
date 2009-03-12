@@ -1,12 +1,12 @@
 Name:           kqemu
-Version:        1.3.0
-Release:        0.8.pre11%{?dist}
+Version:        1.4.0
+Release:        0.1.pre1%{?dist}
 Summary:        The QEMU Accelerator Module (KQEMU)
 
 Group:          System Environment/Kernel
 License:        GPLv2
-URL:            http://bellard.org/qemu/
-Source0:        http://bellard.org/qemu/kqemu-%{version}pre11.tar.gz
+URL:            http://www.nongnu.org/qemu/
+Source0:        http://www.nongnu.org/qemu/kqemu-%{version}pre1.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.udev
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -23,7 +23,8 @@ Requires(post): /sbin/service
 Requires(preun): /sbin/service
 Requires(preun): /sbin/chkconfig
 
-Requires: qemu >= 0.9.1
+#qemu from fedora bumped epoch
+Requires: qemu >= 2:0.10.0
 
 
 %description
@@ -34,7 +35,7 @@ on the host processor to achieve near native performance.
 
 
 %prep
-%setup -q -n kqemu-%{version}pre11
+%setup -q -n kqemu-%{version}pre1
 
 
 %build
@@ -76,6 +77,9 @@ fi
 
 
 %changelog
+* Thu Mar 12 2009 kwizart < kwizart at gmail.com > - 1.4.0-0.1.pre1
+- Update to 1.4.0pre1
+
 * Sat Oct 04 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 1.3.0-0.8.pre11
 - rebuild for rpm fusion
 
