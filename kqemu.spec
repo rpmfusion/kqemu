@@ -1,6 +1,6 @@
 Name:           kqemu
 Version:        1.4.0
-Release:        0.1.pre1%{?dist}
+Release:        0.2.pre1%{?dist}
 Summary:        The QEMU Accelerator Module (KQEMU)
 
 Group:          System Environment/Kernel
@@ -77,6 +77,9 @@ fi
 
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.0-0.2.pre1
+- rebuild for new F11 features
+
 * Thu Mar 12 2009 kwizart < kwizart at gmail.com > - 1.4.0-0.1.pre1
 - Update to 1.4.0pre1
 
