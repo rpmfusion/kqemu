@@ -1,6 +1,6 @@
 Name:           kqemu
 Version:        1.4.0
-Release:        0.3.pre1%{?dist}
+Release:        0.4.pre1%{?dist}
 Summary:        The QEMU Accelerator Module (KQEMU)
 
 Group:          System Environment/Kernel
@@ -24,7 +24,7 @@ Requires(preun): /sbin/service
 Requires(preun): /sbin/chkconfig
 
 #qemu from fedora bumped epoch
-Requires: qemu >= 2:0.10
+#Requires: qemu >= 2:0.10
 
 
 %description
@@ -77,6 +77,9 @@ fi
 
 
 %changelog
+* Fri Jun  5 2009 kwizart < kwizart at gmail.com > - 1.4.0-0.4.pre1
+- Disable qemu Requirement for now.
+
 * Tue Apr 28 2009 kwizart < kwizart at gmail.com > - 1.4.0-0.3.pre1
 - Fix wrong version (epoch was accurate) - RPMFusion #572
 
