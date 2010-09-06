@@ -1,6 +1,6 @@
 Name:           kqemu
 Version:        1.4.0
-Release:        0.4.pre1%{?dist}
+Release:        0.5.pre1%{?dist}
 Summary:        The QEMU Accelerator Module (KQEMU)
 
 Group:          System Environment/Kernel
@@ -77,6 +77,9 @@ fi
 
 
 %changelog
+* Mon Sep 06 2010 Nicolas Chauvet <kwizart@gmail.com> - 1.4.0-0.5.pre1
+- Fix rfbz#1312
+
 * Fri Jun  5 2009 kwizart < kwizart at gmail.com > - 1.4.0-0.4.pre1
 - Disable qemu Requirement for now.
 
